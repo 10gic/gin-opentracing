@@ -54,6 +54,7 @@ func service1handler(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
@@ -69,6 +70,7 @@ func service2handler(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return

@@ -8,7 +8,6 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/zipkin"
-	"io"
 	"net/http"
 	"time"
 )
@@ -71,22 +70,4 @@ func func2(ctx context.Context) {
 
 	time.Sleep(100 * time.Millisecond)
 	fmt.Printf("call func2\n")
-}
-
-func doHttpRequestInjectSpan(ctx context.Context, method string, url string, body io.Reader) (*http.Response, error) {
-	httpClient := &http.Client{}
-	httpReq, _ := http.NewRequest(method, url, body)
-
-	if span := opentracing.SpanFromContext(ctx); span != nil {
-		if err := opentracing.GlobalTracer().Inject(
-			span.Context(),
-			opentracing.HTTPHeaders,
-			opentracing.HTTPHeadersCarrier(httpReq.Header)); err != nil {
-			fmt.Printf("inject span error: %s", err)
-		}
-	} else {
-		fmt.Println("no span found")
-	}
-
-	return httpClient.Do(httpReq)
 }

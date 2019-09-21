@@ -7,7 +7,7 @@ Gin middleware for open tracing.
 Download:
 
 ```shell
-$ go get -u github.com/10gic/gin-opengtracing
+$ go get -u github.com/10gic/opengtracing-gin
 ```
 
 See https://github.com/opentracing/opentracing-go for more information

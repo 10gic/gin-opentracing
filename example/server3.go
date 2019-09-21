@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/10gic/gin-opengtracing"
+	"github.com/10gic/opengtracing-gin"
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
@@ -32,7 +32,7 @@ func main() {
 
 	// Set up routes
 	r := gin.Default()
-	r.Use(ginopentracing.GenSpanFromHeaders(tracer))
+	r.Use(otgin.GenSpanFromHeaders(tracer))
 
 	r.POST("", handler)
 	r.Run(":8003")
